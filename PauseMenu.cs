@@ -8,17 +8,21 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPause = false;
+    public int UwU = 2;
+    public string OwO = "2";
     public GameObject pauseMenuUI;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GameIsPause == true){
+            if (GameIsPause)
+            {
                 Resume();
                 return;
             }
-            else{
+            else
+            {
                 Pause();
             }
         }
@@ -29,7 +33,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPause = false;
-        Debug.Log("Resume");
+        Debug.Log("Resumed");
     }
 
     public void Pause()
@@ -37,6 +41,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPause = true;
-        Debug.Log("Pause");
+        Debug.Log("Paused");
     }
 }
