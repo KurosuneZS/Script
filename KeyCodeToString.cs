@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class KeyCodeToString : MonoBehaviour
 {
     public Button targetButton; // Reference to the UI button
+    public Text titleLabel; // Reference to the UI Text for the title
+    public string defaultTitle = "Press a key..."; // Default title
+
     private bool isWaitingForKey = false;
 
     void Start()
@@ -14,6 +17,12 @@ public class KeyCodeToString : MonoBehaviour
         if (targetButton != null)
         {
             targetButton.onClick.AddListener(StartKeyDetection);
+        }
+
+        // Set the default title
+        if (titleLabel != null)
+        {
+            titleLabel.text = defaultTitle;
         }
     }
 
@@ -34,6 +43,12 @@ public class KeyCodeToString : MonoBehaviour
                         targetButton.GetComponentInChildren<Text>().text = "Key: " + keyName;
                     }
 
+                    // Set the title text to the pressed key
+                    if (titleLabel != null)
+                    {
+                        titleLabel.text = "Title: " + keyName;
+                    }
+
                     isWaitingForKey = false;
                     break;
                 }
@@ -49,7 +64,13 @@ public class KeyCodeToString : MonoBehaviour
         // Clear the button text while waiting for input
         if (targetButton != null && targetButton.GetComponentInChildren<Text>() != null)
         {
-            targetButton.GetComponentInChildren<Text>().text = "Press a key...";
+            targetButton.GetComponentInChildren<Text>().text = defaultTitle;
+        }
+
+        // Reset the title text
+        if (titleLabel != null)
+        {
+            titleLabel.text = defaultTitle;
         }
     }
 }
