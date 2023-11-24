@@ -47,7 +47,7 @@ public class KeyCodeToString : MonoBehaviour
         isWaitingForKey = true;
 
         // Clear the button text while waiting for input
-        if (targetButton != null)
+        if (targetButton != null && targetButton.GetComponentInChildren<Text>() != null)
         {
             targetButton.GetComponentInChildren<Text>().text = "Press a key...";
         }
