@@ -29,7 +29,7 @@ public class KeyCodeToString : MonoBehaviour
                     Debug.Log("Pressed: " + keyName);
 
                     // Display the keyName on the button text
-                    if (targetButton != null)
+                    if (targetButton != null && targetButton.GetComponentInChildren<Text>() != null)
                     {
                         targetButton.GetComponentInChildren<Text>().text = "Key: " + keyName;
                     }
