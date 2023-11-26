@@ -7,15 +7,15 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEditor;
 
-public class PlayerMovement : MonoBehaviour
+public class TextToKeyCode : MonoBehaviour
 {
     public TextMeshProUGUI left;
     public TextMeshProUGUI right;
     public TextMeshProUGUI jump;
     public TextMeshProUGUI interact;
     public TextMeshProUGUI sprint;
-    public float walkspeed = 0.5f;
-    public float sprintspeed = 1f;
+    public float walkspeed = 1f;
+    public float sprintspeed = 1.5f;
     public Rigidbody2D playerRb;
     public float input;
     public SpriteRenderer spriteRenderer;

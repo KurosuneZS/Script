@@ -1,28 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class KeyCodeToString : MonoBehaviour
 {
-    public Button targetButton; // Reference to the UI button
-    public Text titleLabel; // Reference to the UI Text for the title
-    public string defaultTitle = "Press a key..."; // Default title
+    public Button targetButton;
+    public TextMeshProUGUI titleLabel;
+    public string defaultTitle;
 
     private bool isWaitingForKey = false;
 
     void Start()
     {
+
         if (targetButton != null)
         {
             targetButton.onClick.AddListener(StartKeyDetection);
-        }
-
-        // Set the default title
-        if (titleLabel != null)
-        {
-            titleLabel.text = defaultTitle;
         }
     }
 
@@ -37,16 +33,14 @@ public class KeyCodeToString : MonoBehaviour
                     string keyName = Enum.GetName(typeof(KeyCode), keyCode);
                     Debug.Log("Pressed: " + keyName);
 
-                    // Display the keyName on the button text
                     if (targetButton != null && targetButton.GetComponentInChildren<Text>() != null)
                     {
                         targetButton.GetComponentInChildren<Text>().text = "Key: " + keyName;
                     }
 
-                    // Set the title text to the pressed key
                     if (titleLabel != null)
                     {
-                        titleLabel.text = "Title: " + keyName;
+                        titleLabel.text = keyName;
                     }
 
                     isWaitingForKey = false;
@@ -58,19 +52,16 @@ public class KeyCodeToString : MonoBehaviour
 
     void StartKeyDetection()
     {
-        // Set a flag to indicate that we are waiting for a key press
         isWaitingForKey = true;
 
-        // Clear the button text while waiting for input
         if (targetButton != null && targetButton.GetComponentInChildren<Text>() != null)
         {
             targetButton.GetComponentInChildren<Text>().text = defaultTitle;
         }
 
-        // Reset the title text
         if (titleLabel != null)
         {
-            titleLabel.text = defaultTitle;
+            titleLabel.text = "Press a key";
         }
     }
 }
