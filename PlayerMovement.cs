@@ -106,6 +106,23 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
+        if(string.Equals(interact, press))
+        {
+            return;
+        }
+        else
+        {
+            foreach(char c in interactive)
+            {
+                KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode),interactive);
+
+                if(Input.GetKeyDown(keyCode))
+                {
+
+                }
+            }
+        }
     }
 
         void FixedUpdate()
