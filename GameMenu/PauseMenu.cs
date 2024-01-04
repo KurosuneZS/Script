@@ -1,23 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPause;
-    public int UwU = 2;
-    public string OwO = "2";
+    public static bool GameIsPause = false;
     public GameObject pauseMenuUI;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPause = false)
+            if (GameIsPause)
             {
                 Resume();
                 return;

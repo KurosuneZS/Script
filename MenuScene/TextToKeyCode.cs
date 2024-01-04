@@ -6,8 +6,6 @@ using UnityEngine.UI;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEditor;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 
 public class TextToKeyCode : MonoBehaviour
 {
