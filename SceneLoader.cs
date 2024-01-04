@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
     public static bool GameIsPause = false;
-    public GameObject pauseMenuUI;
+    public string sceneToActivate;
+
     public void QuitGame() 
     {
         Application.Quit();
@@ -21,7 +23,10 @@ public class SceneLoader : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0f;
-    }
+    }   
 
-    
+    public void SwitchScene()
+    {
+        SceneManager.LoadScene(sceneToActivate);
+    }
 }

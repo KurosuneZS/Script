@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEditor;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 public class TextToKeyCode : MonoBehaviour
 {
@@ -26,22 +28,24 @@ public class TextToKeyCode : MonoBehaviour
     public Transform feetPosition;
     public float groundCheckCircle;
 
+
     void Update()
     {
+
         string leftmove = left.text;
         string rightmove = right.text;
         string jumpmove = jump.text;
         string interactive = interact.text;
         string sprintmove = sprint.text;
         string press = "Press a key";
+        
+        string KeyBinds = leftmove + rightmove + jumpmove + interactive + sprintmove;
 
         float horizontalInput = 0f;
 
-        if (string.Equals(sprintmove, press))
-        {
-            return;
-        }
-        else if (string.Equals(leftmove, press))
+        isGrounded = Physics2D.OverlapCircle(feetPosition.position, groundCheckCircle, groundLayer);
+
+        if (string.Equals(KeyBinds, press))
         {
             return;
         }
@@ -54,7 +58,7 @@ public class TextToKeyCode : MonoBehaviour
                 Vector2 movement = new Vector2(horizontalInput, 0f);
                 transform.Translate(movement * speed * Time.deltaTime);
 
-                foreach (char f in leftmove)
+                foreach (char l in leftmove)
                 {
                     KeyCode Forward = (KeyCode)Enum.Parse(typeof(KeyCode), leftmove);
 
@@ -66,50 +70,33 @@ public class TextToKeyCode : MonoBehaviour
                     }
                 }
 
-                if (string.Equals(rightmove, press))
+                foreach (char r in rightmove)
                 {
-                    return;
-                }
-                else
-                {
-                    foreach (char r in rightmove)
-                    {
-                        KeyCode Backward = (KeyCode)Enum.Parse(typeof(KeyCode), rightmove);
+                    KeyCode Backward = (KeyCode)Enum.Parse(typeof(KeyCode), rightmove);
 
-                        if (Input.GetKey(Backward))
-                        {
-                            spriteRenderer.flipX = false;
-                            horizontalInput = 1f;
-                            Debug.Log(Backward);
-                        }
+                    if (Input.GetKey(Backward))
+                    {
+                        spriteRenderer.flipX = true;
+                        horizontalInput = -1f;
+                        Debug.Log(Backward);
                     }
                 }
 
-            }
-        }
-
-        isGrounded = Physics2D.OverlapCircle(feetPosition.position, groundCheckCircle, groundLayer);
-
-        if(string.Equals(jumpmove, press))
-        {
-            return;
-        }
-        else
-        {
-            foreach(char c in jumpmove)
+                foreach (char j in jumpmove)
             {
-                KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), jumpmove);
+                KeyCode Jump = (KeyCode)Enum.Parse(typeof(KeyCode), jumpmove);
 
-                if(isGrounded && Input.GetKey(keyCode))
+                if (isGrounded && Input.GetKey(Jump))
                 {
                     playerRb.velocity = Vector2.up * JumpForce;
                 }
             }
+            }
         }
     }
 
-        void FixedUpdate()
+    void FixedUpdate()
     {
-        playerRb.velocity = new Vector2 (input * walkspeed, playerRb.velocity.y);
+        playerRb.velocity = new Vector2(input * walkspeed, playerRb.velocity.y);
     }
 }

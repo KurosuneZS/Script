@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPause = false;
+    public static bool GameIsPause;
     public int UwU = 2;
     public string OwO = "2";
     public GameObject pauseMenuUI;
@@ -16,7 +17,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPause)
+            if (GameIsPause = false)
             {
                 Resume();
                 return;

@@ -6,13 +6,14 @@ using UnityEngine.UI;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEditor;
+using UnityEngine.Video;
+using System.Runtime.InteropServices;
 
 public class PlayerMovement : MonoBehaviour
 {
     public TextMeshProUGUI left;
     public TextMeshProUGUI right;
     public TextMeshProUGUI jump;
-    public TextMeshProUGUI interact;
     public TextMeshProUGUI sprint;
     public float walkspeed = 0.5f;
     public float sprintspeed = 1f;
@@ -31,57 +32,44 @@ public class PlayerMovement : MonoBehaviour
         string leftmove = left.text;
         string rightmove = right.text;
         string jumpmove = jump.text;
-        string interactive = interact.text;
         string sprintmove = sprint.text;
         string press = "Press a key";
 
         float horizontalInput = 0f;
 
-        if (string.Equals(sprintmove, press))
-        {
-            return;
-        }
-        else if (string.Equals(leftmove, press))
+        if (string.Equals(sprintmove, press) || string.Equals(leftmove, press) || string.Equals(rightmove, press))
         {
             return;
         }
         else
         {
-            foreach (char c in sprintmove)
+            foreach (char s in sprintmove)
             {
-                KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), sprintmove);
-                float speed = Input.GetKey(keyCode) ? sprintspeed : walkspeed;
+                KeyCode sm = (KeyCode)Enum.Parse(typeof(KeyCode), sprintmove);
+                float speed = Input.GetKey(sm) ? sprintspeed : walkspeed;
                 Vector2 movement = new Vector2(horizontalInput, 0f);
                 transform.Translate(movement * speed * Time.deltaTime);
 
+                KeyCode Backward = (KeyCode)Enum.Parse(typeof(KeyCode), leftmove);
+                KeyCode Forward = (KeyCode)Enum.Parse(typeof(KeyCode), rightmove);
+
                 foreach (char f in leftmove)
                 {
-                    KeyCode Forward = (KeyCode)Enum.Parse(typeof(KeyCode), leftmove);
-
-                    if (Input.GetKey(Forward))
+                    if (Input.GetKey(Backward))
                     {
                         spriteRenderer.flipX = true;
                         horizontalInput = -1f;
-                        Debug.Log(Forward);
+                        Debug.Log(Backward);
                     }
                 }
-
-                if (string.Equals(rightmove, press))
+                foreach (char r in rightmove)
                 {
-                    return;
-                }
-                else
-                {
-                    foreach (char r in rightmove)
+                    if (Input.GetKey(Forward))
                     {
-                        KeyCode Backward = (KeyCode)Enum.Parse(typeof(KeyCode), rightmove);
+                        spriteRenderer.flipX = false;
+                        horizontalInput = 1f;
+                        Debug.Log(Forward);
 
-                        if (Input.GetKey(Backward))
-                        {
-                            spriteRenderer.flipX = false;
-                            horizontalInput = 1f;
-                            Debug.Log(Backward);
-                        }
                     }
                 }
 
@@ -90,43 +78,27 @@ public class PlayerMovement : MonoBehaviour
 
         isGrounded = Physics2D.OverlapCircle(feetPosition.position, groundCheckCircle, groundLayer);
 
-        if(string.Equals(jumpmove, press))
+        if (string.Equals(jumpmove, press))
         {
             return;
         }
         else
         {
-            foreach(char c in jumpmove)
+            foreach (char c in jumpmove)
             {
                 KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), jumpmove);
 
-                if(isGrounded && Input.GetKey(keyCode))
+                if (isGrounded && Input.GetKey(keyCode))
                 {
                     playerRb.velocity = Vector2.up * JumpForce;
                 }
             }
         }
-
-        if(string.Equals(interact, press))
-        {
-            return;
-        }
-        else
-        {
-            foreach(char c in interactive)
-            {
-                KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode),interactive);
-
-                if(Input.GetKeyDown(keyCode))
-                {
-
-                }
-            }
-        }
     }
 
-        void FixedUpdate()
+    void FixedUpdate()
     {
-        playerRb.velocity = new Vector2 (input * walkspeed, playerRb.velocity.y);
+        playerRb.velocity = new Vector2(input * walkspeed, playerRb.velocity.y);
     }
+
 }
