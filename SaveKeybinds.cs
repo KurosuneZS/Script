@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class SaveKeybinds : MonoBehaviour
 {
-    public TextMeshProUGUI firstText;
-    public TextMeshProUGUI secondText;
-    public TextMeshProUGUI thirthText;
-    public TextMeshProUGUI forthText;
-    public TextMeshProUGUI fifthText;
+    public TextMeshProUGUI Forward;
+    public TextMeshProUGUI Backward;
+    public TextMeshProUGUI Sprint;
+    public TextMeshProUGUI Jump;
+    public TextMeshProUGUI Interact;
 
     public void SaveKeybindsToNextSecene()
     {
-        PlayerPrefs.SetString("SaveFirstText", firstText.text);
-        PlayerPrefs.SetString("SaveSecondText", secondText.text);
-        PlayerPrefs.SetString("SaveThithText", thirthText.text);
-        PlayerPrefs.SetString("SaveForthText", forthText.text);
-        PlayerPrefs.SetString("SaveFifthText", fifthText.text);
+        PlayerPrefs.SetString("SaveFirstText", Forward.text);
+        PlayerPrefs.SetString("SaveSecondText", Backward.text);
+        PlayerPrefs.SetString("SaveThithText", Sprint.text);
+        PlayerPrefs.SetString("SaveForthText", Jump.text);
+        PlayerPrefs.SetString("SaveFifthText", Interact.text);
+        PlayerPrefs.Save();
     }
 }
