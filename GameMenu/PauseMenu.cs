@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPause = false;
     public GameObject pauseMenuUI;
+    public Animator animation;
+    private bool animationIsPlaying = false;
 
     void Update()
     {
@@ -27,7 +29,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
+        animation.Play("Resume");
         Time.timeScale = 1f;
         GameIsPause = false;
         Debug.Log("Resumed");
@@ -35,9 +37,28 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        pauseMenuUI.SetActive(true);
+        
+        animation.Play("Pause");
+        if (!animationIsPlaying)
+        {
+            StartCoroutine(WaitForAnimarion());
+        }
+    }
+
+    private IEnumerator WaitForAnimarion()
+    {
+        animationIsPlaying = true;
+        yield return null;
+
+        while (animation.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
         Time.timeScale = 0f;
         GameIsPause = true;
         Debug.Log("Paused");
+
+        animationIsPlaying = false;
     }
 }
