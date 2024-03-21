@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPause = false;
+    public bool GameIsPause = false;
     public GameObject pauseMenuUI;
     public Animator animation;
     private bool animationIsPlaying = false;
